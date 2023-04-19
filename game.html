@@ -1,94 +1,159 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
+
+<head>
+    <meta charset="utf-8">
     <title>Text Adventure Game</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #141e30;
+            background: -webkit-linear-gradient(to right, #141e30, #243b55);
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #fff;
+        }
+        
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            font-size: 3rem;
+            margin: 2rem 0;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        
+        #story {
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            animation: fadein 2s;
+        }
+        
+        #options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        #options li {
+            margin: 1.5rem 0;
+            text-align: center;
+            animation: slideup 2s;
+        }
+        
+        button {
+            padding: 0.75rem 1rem;
+            border: none;
+            background-color: #fff;
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            transition: all 0.1s ease-in-out;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);
+        }
+        
+        @keyframes fadein {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideup {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
 
-  </head>
-  <style>
-      body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-}
+<body>
+    <h1>Text Adventure Game</h1>
+    <p>Select an option to progress through the story.</p>
+    <p id="story"></p>
+    <ul id="options"></ul>
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
+    <script>
+        const storyElement = document.getElementById('story');
+        const optionsElement = document.getElementById('options');
 
-.output {
-  min-height: 200px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
-  overflow-y: scroll;
-}
+        let storyIndex = 0;
 
-.input form {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+        const story = [
+            'You wake up in texas. Just another day. No fun, nothing new. As soon as this thought crosses your mind, you realize your living a meaningless life',
+            'You try your hardest to rip off the device, but it wont come loose.',
+            'The head monitoring is shaped like headphones. you use this to your advantage, and put one side over the door knob, and throw your head down. it pops loose. Thoughts rush to your brain. Thoughts about the outside world. Thoughts about your family. You realize you have to overthrow Mr. Hat. But how? as you think, you realize that all the power is in the head monitors. If those were gone, everything would be ok. You decide to try to hack it.',
+            'As your banging, all thoughts leave your mind. you took to long. Try again?',
+            'As your scanning around the computer, you come across a password protected file. You think for a second.',
+            '6 hours later, your still at your computer. Then you hear a deafening noise. You look up, and see a haticopter. While your staring, they drop a bomb. YOU LOSE!',
+            'It works. You see a big red button on screen labeled DO NOT PUSH.',
+            'The second you do this, you hear a deafening noise. You peer out your window, and see an explosion in the direction of Mr. Hats lair. YOU WIN!'
+        ];
 
-.input input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  font-size: 18px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+        const options = [
+            ['Tear off your head monitoring device', 'Fall back asleep'],
+            ['Try to use a door handle to break it off', 'Bang your head against a wall til it comes loose'],
+            ['(USELESS) Throw your computer out a window and hope for the best', 'Look for a way into the database.'],
+            ['Try again'],
+            ['Guess random things til you get it.', 'Try password123'],
+            ['Push it.', 'Dont pu... who am i kidding, we know your going to push it.'],
+            []
+        ];
 
-.input button {
-  padding: 10px 20px;
-  font-size: 18px;
-  border: none;
-  background-color: #4caf50;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-}
+        const optionDestinations = [
+            [1, 0],
+            [2, 3],
+            [7, 5],
+            [0, 0],
+            [5, 2],
+            [7, 7],
+            [0, 0]
+        ];
 
-.input button:hover {
-  background-color: #3e8e41;
-}
+        function displayStory() {
+            storyElement.innerHTML = story[storyIndex];
+        }
 
-  </style>
-  <body>
-    <div class="container">
-      <div class="output"></div>
-      <div class="input">
-        <form>
-          <input type="text" placeholder="Enter your command here" autofocus>
-          <button type="submit">Go</button>
-        </form>
-      </div>
-    </div>
-    <script >
-        const output = document.querySelector('.output');
-const input = document.querySelector('input');
-const form = document.querySelector('form');
-let story = '';
+        function displayOptions() {
+            optionsElement.innerHTML = '';
+            for (let i = 0; i < options[storyIndex].length; i++) {
+                const option = options[storyIndex][i];
+                const li = document.createElement('li');
+                const button = document.createElement('button');
+                button.innerHTML = option;
+                button.addEventListener('click', handleOptionClick);
+                li.appendChild(button);
+                optionsElement.appendChild(li);
+            }
+        }
 
-// Add your story here
-story += 'You wake up in a dark room.';
+        function handleOptionClick(event) {
+            const buttonText = event.target.innerHTML;
+            const optionIndex = options[storyIndex].indexOf(buttonText);
+            storyIndex = optionDestinations[storyIndex][optionIndex];
+            displayStory();
+            displayOptions();
+        }
 
-// Handle form submission
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-  const command = input.value.trim();
-  input.value = '';
-  if (command === 'look') {
-    output.innerHTML += '<p>' + story + '</p>';
-  } else if (command === 'help') {
-    output.innerHTML += '<p>Available commands: look, help</p>';
-  } else {
-    output.innerHTML += '<p>Invalid command</p>';
-  }
-});
-
+        displayStory();
+        displayOptions();
     </script>
-  </body>
+</body>
+
 </html>
