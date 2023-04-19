@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Five Laws</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        overflow-y: scroll;
+        height: 800px;
+      }
+
+      .law {
+        padding: 20px;
+        border-bottom: 1px solid #ccc;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeIn 1s ease forwards;
+      }
+
+      .law:nth-child(odd) {
+        background-color: #f2f2f2;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href='javascript:history.back()'><button class="click" style='    padding: 10px;border: solid black;border-width: 0 3px 3px 0;display: inline-block;transform: rotate(135deg);-webkit-transform: rotate(135deg);'>  </button></a>
+
+    <div class="container">
+      <div class="law">
+        <h2>Law 1</h2>
+        <p>Removal of headmonitering device is punishable by death.</p>
+      </div>
+      <div class="law">
+        <h2>Law 2</h2>
+        <p>Anything negative said about Mr. Hat results in going to the hat cage. (jail)</p>
+      </div>
+      <div class="law">
+        <h2>Law 3</h2>
+        <p>No attempts can be made to contact the rest of the world. </p>
+      </div>
+      <div class="law">
+        <h2>Law 4</h2>
+        <p>You may not leave your assigned plot. You will receive one on your 13th birthday.</p>
+      </div>
+      <div class="law">
+        <h2>Law 5</h2>
+        <p>Everyone is equal. Nobody has more power then the next person. (Except Mr. Hat)</p>
+      </div>
+    </div>
+    <script>
+      const laws = document.querySelectorAll('.law');
+
+      laws.forEach((law, index) => {
+        law.style.animationDelay = `${index * 0.2}s`;
+      });
+    </script>
+  </body>
+</html>

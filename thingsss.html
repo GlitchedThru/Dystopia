@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color:darkcyan;
+        }
+        video{
+            position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+        }
+        .click {
+  position: absolute;
+  top: 20;
+ z-index:1;
+}
+    </style>
+</head>
+<body>
+    <a href='javascript:history.back()'><button class="click" style='    padding: 10px;border: solid black;border-width: 0 3px 3px 0;display: inline-block;transform: rotate(135deg);-webkit-transform: rotate(135deg);'>  </button></a>
+
+    <video autoplay="autoplay" loop="loop" width="100%" height="auto" controls>
+        
+        <source style ='top:0px' src="plzwork.mov" type=video/mp4>
+      </video>
+</body>
+</html>

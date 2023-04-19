@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Text Adventure Game</title>
+
+  </head>
+  <style>
+      body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.output {
+  min-height: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  overflow-y: scroll;
+}
+
+.input form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.input button:hover {
+  background-color: #3e8e41;
+}
+
+  </style>
+  <body>
+    <div class="container">
+      <div class="output"></div>
+      <div class="input">
+        <form>
+          <input type="text" placeholder="Enter your command here" autofocus>
+          <button type="submit">Go</button>
+        </form>
+      </div>
+    </div>
+    <script >
+        const output = document.querySelector('.output');
+const input = document.querySelector('input');
+const form = document.querySelector('form');
+let story = '';
+
+// Add your story here
+story += 'You wake up in a dark room.';
+
+// Handle form submission
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const command = input.value.trim();
+  input.value = '';
+  if (command === 'look') {
+    output.innerHTML += '<p>' + story + '</p>';
+  } else if (command === 'help') {
+    output.innerHTML += '<p>Available commands: look, help</p>';
+  } else {
+    output.innerHTML += '<p>Invalid command</p>';
+  }
+});
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>The Story</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+      }
+      
+      .container {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 100px;
+      }
+      
+      h1 {
+        font-size: 48px;
+        margin-bottom: 50px;
+        animation: slideInLeft 1s ease-out;
+      }
+      
+      p {
+        font-size: 24px;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: fadeInOut 2s ease-out;
+      }
+      
+      @keyframes slideInLeft {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(0%);
+        }
+      }
+      
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0;
+        }
+        25% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>The Story</h1>
+      <p id="story">Once upon a time, there was a beautiful princess who lived in a magnificent castle.</p>
+      <p id="story-1">One day, a terrible dragon attacked the castle and took the princess away.</p>
+      <p id="story-2">The king was very upset and offered a great reward to anyone who could rescue his daughter.</p>
+      <p id="story-3">A brave knight named Sir Lancelot decided to take on the challenge and set out to defeat the dragon.</p>
+      <p id="story-4">After a long and difficult battle, Sir Lancelot was able to slay the dragon and rescue the princess.</p>
+      <p id="story-5">The princess and Sir Lancelot fell in love and got married, and they all lived happily ever after.</p>
+    </div>
+    
+    <script>
+      const storyElements = [
+        document.getElementById("story"),
+        document.getElementById("story-1"),
+        document.getElementById("story-2"),
+        document.getElementById("story-3"),
+        document.getElementById("story-4"),
+        document.getElementById("story-5")
+      ];
+      let currentTextIndex = 0;
+      
+      function changeText() {
+        const currentStory = storyElements[currentTextIndex];
+        const nextTextIndex = (currentTextIndex + 1) % storyElements.length;
+        const nextStory = storyElements[nextTextIndex];
+        
+        currentStory.classList.remove("fadeInOut");
+        currentStory.classList.add("fadeOut");
+        setTimeout(() => {
+          currentStory.style.display = "none";
+          currentStory.classList.remove("fadeOut");
+          nextStory.style.display = "block";
+          nextStory.classList.add("fadeInOut");
+        }, 1000);
+        
+        currentTextIndex = nextTextIndex;
+      }
+      
+      setInterval(changeText, 4000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="pages.css" />
+</head>
+<body>
+    <a href='javascript:history.back()'><button class="click" style='    padding: 10px;border: solid black;border-width: 0 3px 3px 0;display: inline-block;transform: rotate(135deg);-webkit-transform: rotate(135deg);'>  </button></a>
+    
+    <div style='text-align: center;'>
+    <span id="fadeEl" class="text-show" Align="center" style='    text-align: center;
+    font-family: monospace;
+    font-size: 50px;
+    margin-bottom:-20%;
+    padding-left:20px'>And so, this brings us to today.</span>
+    </div>
+</body>
+<script>
+    const text = [,"Texas is floating 14 miles above earth, with next to no contact.","As previosly stated, individuallity was outlawed.","There was no money, and your house was assigned to you. ","You could have one friend who was assigned to you at birth.","Food was deleviered to you by drone, and you couldn't interact with anyone but your one friend.",'If you thought anything considered "bad", then you were electricuted until the thought was gone.'];
+let counter = 0;
+
+setInterval(change, 5000);
+
+function change() {
+  document.getElementById("fadeEl").setAttribute("class", "text-fade");
+
+  setTimeout(() => {
+    document.getElementById("fadeEl").innerHTML = text[counter];
+    document.getElementById("fadeEl").setAttribute("class", "text-show");
+  }, 1000)
+
+  counter++;
+
+  if (counter >= text.length) {
+    counter = 0;
+  }
+}
+</script>
+</html>
